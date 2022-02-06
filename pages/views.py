@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
+#from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
 
 # Create your views here.
 # takes request -> response
