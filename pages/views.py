@@ -13,14 +13,14 @@ from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process
 
 @csrf_exempt
 def homepage_view(request):
-    return render(request, 'HTMLFrontPage.html') #takes in template name and context
+    return render(request, 'base.html') #takes in template name and context
 
 @csrf_exempt
 def get_emotion(request):
     image = request.POST.get('imgBase64')
     if image:
         file = open(f'output/Images/0.jpg', 'wb')
-        file.write(base64.b64decode(image))
+        file.write(base64.b64decode(image.split(',')[1]))
         file.close()
         convert_to_video('output/Images/*.jpg')
         vid_df = parse_and_process("output/out.mp4")
@@ -33,8 +33,8 @@ def get_emotion(request):
     return render(request, f"{topemotion}.html", {'link': url})
 
 
-def say_hello(request):
-    return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view
+# def say_hello(request):
+#     return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view
 
-def happy_view(request):
-    return render(request, 'happy.html', {'link': 'test_link'}) # name is an input vbl to the view
+# def happy_view(request):
+#     return render(request, 'happy.html', {'link': 'test_link'}) # name is an input vbl to the view
