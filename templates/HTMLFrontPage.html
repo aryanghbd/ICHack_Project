@@ -28,6 +28,7 @@
                 context.drawImage(video, 0, 0, 640, 480);
                 var dataURL = canvas.toDataURL();
                 dataURLs[i] = dataURL;
+                setTimeout(100);
             }
             var json_string = JSON.stringify(dataURLs);
 
