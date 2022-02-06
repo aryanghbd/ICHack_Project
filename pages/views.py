@@ -4,8 +4,10 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-
+import pathlib
 from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
+import random
+import os
 
 # Create your views here.
 # takes request -> response
@@ -31,7 +33,11 @@ def get_emotion(request):
         print(url) # url contains link to spotify playlist
         print("received")
         print(topemotion)
-    return render(request, f"{topemotion}.html", {'link': url})
+        # if topemotion.lower()=="sad":
+            # c = os.getcwd() + "/images/Animals"
+            # print(c)
+            # return render(request, "sad.html", {'link': url, 'image_url': c + str(random.randint(1,5))})
+        return render(request, f"{topemotion.lower()}.html", {'link': url})
 
 
 # def say_hello(request):
