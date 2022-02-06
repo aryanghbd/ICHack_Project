@@ -9,6 +9,102 @@
         <link rel="stylesheet" href="">
     </head>
     <body>
-        {% block content %}{% endblock %} 
+        <div id="container">
+            <div id="vid-div">
+                <p><span id="name"><i><b>Feels </b></i></span><span id="des"> - a virtual mental health buddy</span></p>
+                <video id="video" autoplay></video>
+                <div id="psnap">
+                    <button id="snap">Snap Photo</button>
+                </div>
+            </div>
+            <div id="content">
+                {% block content %}{% endblock %} 
+            </div>
+        </div>
+        <canvas id="canvas-id", width="640", height="480", display="none"></canvas>
+        <style>
+            html{
+                height: 100%;
+                width: 100%
+            }
+            body{
+                height: 100%;
+                width: 100%
+            }
+            #container{
+                
+            }
+            #name{
+                font-size:400%
+            }
+            #des{
+                font-size:200%
+            }
+            #vid-div {
+                width: 40vw;
+                float: left;
+            }
+            video {
+                height: 100%;
+                width: 100%;
+                transform: rotateY(180deg);
+                -webkit-transform:rotateY(180deg);
+            } 
+            canvas-id {
+                height:100vh;
+            } 
+            #psnap{
+                text-align: center;
+            }
+            #snap{
+            }
+    
+            #content{
+                width: 60 vw;
+                text-align: center;
+            }
+    
+        </style>
+    
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+        <script>
+    
+            var video = document.getElementById('video');
+    
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                });
+            }
+    
+            var canvas = document.getElementById('canvas-id');
+            canvas.style.display = "none";
+            var context = canvas.getContext('2d');
+    
+            document.getElementById("snap").addEventListener("click", function() {
+                context.drawImage(video, 0, 0, 640, 480);
+                var dataURL = canvas.toDataURL();
+                console.log(dataURL)
+                console.log('Picture taken')
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'get_emotion' %}",
+                    data: { 
+                        imgBase64: dataURL
+                    }
+                }).done(function(request) {
+                    console.log('Result returned from backend'); 
+                    $("#content").empty();
+                    $("#content").append(request);
+                    // If you want the file to be visible in the browser 
+                    // - please modify the callback in javascript. All you
+                    // need is to return the url to the file, you just saved 
+                    // and than put the image in your browser.
+                });
+            });
+        </script>
     </body>
 </html>
