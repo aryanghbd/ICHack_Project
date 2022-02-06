@@ -2,8 +2,14 @@
 {% block content %}
     <video id="video" width="640" height="480" autoplay></video>
     <button id="snap">Snap Photo</button>
-    <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="snap-id">
+        <canvas id="canvas" width="640" height="480"></canvas>
+    </div>
     <p id="result"></p>
+    <style>
+        
+    </style>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -23,21 +29,14 @@
         var video = document.getElementById('video');
 
         document.getElementById("snap").addEventListener("click", function() {
-            let dataURLs = [];
-            for (let i = 0; i < 10; i++) {
-                context.drawImage(video, 0, 0, 640, 480);
-                var dataURL = canvas.toDataURL();
-                dataURLs[i] = dataURL;
-                setTimeout(100);
-            }
-            var json_string = JSON.stringify(dataURLs);
-
+            context.drawImage(video, 0, 0, 640, 480);
+            var dataURL = canvas.toDataURL();
             console.log('Picture taken')
             $.ajax({
                 type: "POST",
                 url: "{% url 'get_emotion' %}",
                 data: { 
-                    imgBase64: json_string
+                    imgBase64: dataURL
                 }
             }).done(function(request) {
                 console.log('Result returned from backend'); 

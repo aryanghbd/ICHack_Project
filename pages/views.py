@@ -19,12 +19,9 @@ def homepage_view(request):
 def get_emotion(request):
     image = request.POST.get('imgBase64')
     if image:
-        image_list_bytes = json.loads(image)
-        for idx,image in enumerate(image_list_bytes):
-            image = image.split(',')
-            file = open(f'output/Images/{idx}.jpg', 'wb')
-            file.write(base64.b64decode((image[1])))
-            file.close()
+        file = open(f'output/Images/0.jpg', 'wb')
+        file.write(base64.b64decode(image))
+        file.close()
         convert_to_video('output/Images/*.jpg')
         vid_df = parse_and_process("output/out.mp4")
         plot_emotions(vid_df)
