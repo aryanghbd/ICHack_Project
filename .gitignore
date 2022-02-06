@@ -1,1 +1,6 @@
 ICHack/
+output/Images/*
+!output/Images/.gitkeep
+output/*.zip
+output/*.mp4
+data.csv
