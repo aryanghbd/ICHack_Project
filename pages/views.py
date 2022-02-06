@@ -12,8 +12,12 @@ from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process
 # response handlers
 
 @csrf_exempt 
+
 def homepage_view(request):
-    image = request.POST.get('imgBase64')
+    return render(request, 'HTMLFrontPage.html') #takes in template name and context
+
+def get_emotion(request):
+    image = request.GET.get('imgBase64')
     if image:
         image_list_bytes = json.loads(image)
         for idx,image in enumerate(image_list_bytes):
@@ -27,7 +31,9 @@ def homepage_view(request):
         scores, topemotion = fetch_emotions(vid_df)
         url = fetch_out(topemotion)
         print(url) # url contains link to spotify playlist
+        return render(request, 'happy.html')
     return render(request, 'HTMLFrontPage.html') #takes in template name and context
+    
 
 def say_hello(request):
     return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view

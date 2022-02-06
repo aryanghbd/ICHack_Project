@@ -15,12 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages.views import happy_view, homepage_view
+from pages.views import happy_view, homepage_view, get_emotion
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('pages.urls')),
     path('', homepage_view, name='home'),
+    path('get_emotion', get_emotion, name='get_emotion'),
     path('happy/', happy_view),
 
 ]

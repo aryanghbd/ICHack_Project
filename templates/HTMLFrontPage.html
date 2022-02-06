@@ -27,8 +27,8 @@
             }
             var json_string = JSON.stringify(dataURLs);
             $.ajax({
-                type: "POST",
-                url: "",
+                type: "GET",
+                url: "{% get_emotion %}",
                 data: { 
                     imgBase64: json_string
                 }
