@@ -19,6 +19,6 @@ from pages.views import homepage_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/', include('app.urls')),
+    path('pages/', include('pages.urls')),
     path('', homepage_view, name='home'),
 ]
