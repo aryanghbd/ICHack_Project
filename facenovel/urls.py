@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from pages.views import happy_view, homepage_view
+from pages.views import angry_view, fear_view, happy_view, homepage_view, sad_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('pages/', include('pages.urls')),
     path('', homepage_view, name='home'),
-    path('happy/', happy_view),
-
+    path('happy/', happy_view, name='happy'),
+    path('sad/', sad_view, name='sad'),
+    path('angry/', angry_view, name='angry'),
+    path('fear/', fear_view, name='fear')
 ]

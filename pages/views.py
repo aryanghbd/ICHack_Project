@@ -24,4 +24,13 @@ def say_hello(request):
     return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view
 
 def happy_view(request):
-    return render(request, 'happy.html', {'link': 'test_link'}) # name is an input vbl to the view
+    return render(request, 'happy.html', {  'link': 'test_link',
+                                            'joke': 'test_joke'}) # name is an input vbl to the view
+def sad_view(request):
+    return render(request, 'sad.html',   {   'link': 'test_link',
+                                            'img_link':'https://images.unsplash.com/photo-1615751072497-5f5169febe17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMGRvZ3xlbnwwfHwwfHw%3D&w=1000&q=80'}) # name is an input vbl to the view
+def angry_view(request):
+    return render(request, 'angry.html', {  'link': 'test_link'})
+
+def fear_view(request):
+    return render(request, 'fear.html', {  'link': 'test_link'})
