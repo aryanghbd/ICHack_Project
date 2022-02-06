@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-from utils import convert_to_video, fetch_emotions, parse_and_process, plot_emotions
+from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
 
 # Create your views here.
 # takes request -> response
@@ -25,6 +25,8 @@ def homepage_view(request):
         vid_df = parse_and_process("output/out.mp4")
         plot_emotions(vid_df)
         scores, topemotion = fetch_emotions(vid_df)
+        url = fetch_out(topemotion)
+        print(url) # url contains link to spotify playlist
     return render(request, 'HTMLFrontPage.html') #takes in template name and context
 
 def say_hello(request):

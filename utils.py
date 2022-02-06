@@ -81,10 +81,6 @@ def make_lists(s):
         out.append(link['external_urls']['spotify'])
     return out
 
-def get_playlist(s):
-    tmp = emotions[s]
-    return tmp[random.randint(0,len(tmp)-1)]
-
 def fetch_out(feel):
     pop_l = make_lists('pop')
     blues_l = make_lists('blues')
@@ -97,7 +93,7 @@ def fetch_out(feel):
                 "Fear":rnb_l,
                 "Surprise":funk_l,
                 }
-    return get_playlist(s)
+    return emotions[feel][random.randint(0,len(emotions[feel])-1)]
 
 if "__name__" == "__main__":
     convert_to_video('Images/*.jpg')
