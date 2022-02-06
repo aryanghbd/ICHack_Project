@@ -22,3 +22,6 @@ def homepage_view(request):
 
 def say_hello(request):
     return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view
+
+def happy_view(request):
+    return render(request, 'happy.html', {'link': 'test_link'}) # name is an input vbl to the view
