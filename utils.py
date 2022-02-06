@@ -6,6 +6,9 @@ import pandas as pd
 import cv2
 import numpy as np
 import glob
+import random
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
 
 def convert_to_video(filepath):
@@ -65,6 +68,36 @@ def fetch_emotions(vid_df):
     score_comparisons = pd.DataFrame(emotions, columns=['Human Emotions'])
     score_comparisons['Emotion Value from the Video'] = emotions_values
     return score_comparisons, prominent_emotion
+
+#Authentication - without user
+client_credentials_manager = SpotifyClientCredentials(client_id='d732ba776cb54bf681ec10673a7dfe5f', client_secret='af80ba1c481f48d69ffbebb817dfcdcc')
+sp = spotipy.Spotify(client_credentials_manager = client_credentials_manager)
+
+def make_lists(s):
+    out = []
+    tmp = sp.category_playlists(s,'GB',5,0)
+    links = tmp['playlists']['items']
+    for link in links:
+        out.append(link['external_urls']['spotify'])
+    return out
+
+def get_playlist(s):
+    tmp = emotions[s]
+    return tmp[random.randint(0,len(tmp)-1)]
+
+def fetch_out(feel):
+    pop_l = make_lists('pop')
+    blues_l = make_lists('blues')
+    chill_l = make_lists('chill')
+    rnb_l = make_lists('rnb')
+    funk_l = make_lists('funk')
+    emotions = {"Happy":pop_l,
+                "Sad":blues_l,
+                "Angry":chill_l,
+                "Fear":rnb_l,
+                "Surprise":funk_l,
+                }
+    return get_playlist(s)
 
 if "__name__" == "__main__":
     convert_to_video('Images/*.jpg')
