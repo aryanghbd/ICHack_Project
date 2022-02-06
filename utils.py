@@ -18,7 +18,7 @@ def convert_to_video(filepath):
         size = (width, height)
         img_array.append(img)
 
-    out = cv2.VideoWriter('out.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 10, size)
+    out = cv2.VideoWriter('output/out.mp4', cv2.VideoWriter_fourcc(*'mp4v'), 10, size)
 
     for i in range(len(img_array)):
         out.write(img_array[i])
@@ -66,8 +66,9 @@ def fetch_emotions(vid_df):
     score_comparisons['Emotion Value from the Video'] = emotions_values
     return score_comparisons, prominent_emotion
 
-convert_to_video('Images/*.jpg')
-vid_df = parse_and_process("out.mp4")
-plot_emotions(vid_df)
-scores, topemotion = fetch_emotions(vid_df)
-print(scores)
+if "__name__" == "__main__":
+    convert_to_video('Images/*.jpg')
+    vid_df = parse_and_process("out.mp4")
+    plot_emotions(vid_df)
+    scores, topemotion = fetch_emotions(vid_df)
+    print(scores)
