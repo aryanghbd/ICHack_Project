@@ -30,7 +30,7 @@ def get_emotion(request):
         print(url) # url contains link to spotify playlist
         print("received")
         print(topemotion)
-    return render(request, f"{topemotion}.html", {'link': url})
+    return render(request, f"{topemotion.lower()}.html", {'link': url})
 
 
 # def say_hello(request):
