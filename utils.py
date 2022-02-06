@@ -67,6 +67,8 @@ def fetch_emotions(vid_df):
     prominent_emotion = emotions[emotions_values.index(topemotions[-1])]
     score_comparisons = pd.DataFrame(emotions, columns=['Human Emotions'])
     score_comparisons['Emotion Value from the Video'] = emotions_values
+    if prominent_emotion == "Neutral":
+        return score_comparisons, emotions[emotions_values.index(topemotions[-2])]
     return score_comparisons, prominent_emotion
 
 #Authentication - without user
