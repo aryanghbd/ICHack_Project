@@ -16,6 +16,8 @@
                 <div id="psnap">
                     <button id="snap">Snap Photo</button>
                 </div>
+                <div id="wait"><p id="loading">
+                </p></div>
             </div>
             <div id="content">
                 {% block content %}{% endblock %} 
@@ -43,6 +45,7 @@
             #vid-div {
                 width: 40vw;
                 float: left;
+                /* //background-color: #86af49; */
             }
             video {
                 height: 100%;
@@ -61,6 +64,10 @@
     
             #content{
                 width: 60 vw;
+                text-align: center;
+                /* //background-color: #b5e7a0; */
+            }
+            wait{
                 text-align: center;
             }
     
@@ -89,6 +96,7 @@
                 var dataURL = canvas.toDataURL();
                 console.log(dataURL)
                 console.log('Picture taken')
+                $("#loading").append("<p>Analysing...</p>");
                 $.ajax({
                     type: "POST",
                     url: "{% url 'get_emotion' %}",
@@ -97,6 +105,8 @@
                     }
                 }).done(function(request) {
                     console.log('Result returned from backend'); 
+                    $("#loading").empty("Done!");
+                    $("#loading").append("<p>Done!</p>");
                     $("#content").empty();
                     $("#content").append(request);
                     // If you want the file to be visible in the browser 

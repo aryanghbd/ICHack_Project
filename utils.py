@@ -69,6 +69,8 @@ def fetch_emotions(vid_df):
     score_comparisons['Emotion Value from the Video'] = emotions_values
     if prominent_emotion == "Neutral":
         return score_comparisons, emotions[emotions_values.index(topemotions[-2])]
+    if prominent_emotion == "Disgust":
+        return score_comparisons, "Angry"
     return score_comparisons, prominent_emotion
 
 #Authentication - without user
