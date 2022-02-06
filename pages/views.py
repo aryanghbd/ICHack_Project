@@ -1,23 +1,23 @@
 import re
 import base64
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-#from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
+from utils import convert_to_video, fetch_emotions, fetch_out, parse_and_process, plot_emotions
 
 # Create your views here.
 # takes request -> response
 # response handlers
 
-@csrf_exempt 
-
+@csrf_exempt
 def homepage_view(request):
     return render(request, 'HTMLFrontPage.html') #takes in template name and context
 
+@csrf_exempt
 def get_emotion(request):
-    image = request.GET.get('imgBase64')
+    image = request.POST.get('imgBase64')
     if image:
         image_list_bytes = json.loads(image)
         for idx,image in enumerate(image_list_bytes):
@@ -31,9 +31,10 @@ def get_emotion(request):
         scores, topemotion = fetch_emotions(vid_df)
         url = fetch_out(topemotion)
         print(url) # url contains link to spotify playlist
-        return render(request, 'happy.html')
-    return render(request, 'HTMLFrontPage.html') #takes in template name and context
-    
+        print("received")
+        print(topemotion)
+    return render(request, f"{topemotion}.html", {'link': url})
+
 
 def say_hello(request):
     return render(request, 'hello.html', {'name': 'facenovel'}) # name is an input vbl to the view
