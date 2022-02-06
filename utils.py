@@ -7,6 +7,8 @@ import cv2
 import numpy as np
 import glob
 import random
+import requests
+import json
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -87,13 +89,24 @@ def fetch_out(feel):
     chill_l = make_lists('chill')
     rnb_l = make_lists('rnb')
     funk_l = make_lists('funk')
-    emotions = {"Happy":pop_l,
+    songlists = {"Happy":pop_l,
                 "Sad":blues_l,
                 "Angry":chill_l,
                 "Fear":rnb_l,
                 "Surprise":funk_l,
                 }
-    return emotions[feel][random.randint(0,len(emotions[feel])-1)]
+    return songlists[feel][random.randint(0,len(songlists[feel])-1)]
+
+#def jokes(f):
+    #data = requests.get(f)
+    #tt = json.loads(data.text)
+    #return tt
+
+#def joke():
+    #f = r"https://official-joke-api.appspot.com/random_joke"
+    #a = jokes(f)
+    #j = a[0]
+    #return (j["setup"],j["punchline"])
 
 if "__name__" == "__main__":
     convert_to_video('Images/*.jpg')

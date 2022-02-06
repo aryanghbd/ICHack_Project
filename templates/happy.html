@@ -2,7 +2,9 @@
 
 {% block content %}
     <h1>It seems you are feeling happy</h1>
-    <p>Give thi+s spotify playlist a listen: {{ link }}
-    <br>Here is a joke you might like: {{ joke }}
+    <p>Give this spotify playlist a listen: <a href={{ link }}>Happy playlist</a> 
+    <br>Here is a joke you might like: 
+    <br>{{ joke_setup }}
+    <br>{{joke_punchline}}
     </p>
 {% endblock %}
