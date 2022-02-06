@@ -28,6 +28,7 @@ def get_emotion(request):
         vid_df = parse_and_process("output/out.mp4")
         plot_emotions(vid_df)
         scores, topemotion = fetch_emotions(vid_df)
+        global url
         url = fetch_out(topemotion)
         print(url) # url contains link to spotify playlist
         print("received")

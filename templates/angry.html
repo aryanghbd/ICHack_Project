@@ -1,32 +1,4 @@
-{% extends 'base.html' %}
-
 {% block content %}
-    <h1>It seems you are feeling angry</h1>
-    <p>Give this spotify playlist a listen: {{ link }}
-    <br>Count down from 20:
-    <br> <div>Lets cool off together <span id="time">00:20</span></div>
-    </p>
-    <script>function startTimer(duration, display) {
-        var timer = duration, minutes, seconds;
-        setInterval(function () {
-            minutes = parseInt(timer / 60, 10)
-            seconds = parseInt(timer % 60, 10);
-    
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
-    
-            display.textContent = minutes + ":" + seconds;
-    
-            if (--timer < 0) {
-                timer = duration;
-            }
-        }, 1000);
-    }
-    
-    window.onload = function () {
-        var fiveMinutes = 20,
-            display = document.querySelector('#time');
-        startTimer(fiveMinutes, display);
-    };
-    </script>
+    <h1>Man's angry innit</h1>
+    <a href = {{link}} target = "_blank"><h2> You are just angry becuase you are mad. Chill out with a relaxing playlist</h2></a>
 {% endblock %}
