@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+    <video id="video" width="640" height="480" autoplay></video>
+    <button id="snap">Snap Photo</button>
+    <canvas id="canvas" width="640" height="480"></canvas>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var video = document.getElementById('video');
+
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+            });
+        }
+
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        var video = document.getElementById('video');
+
+        document.getElementById("snap").addEventListener("click", function() {
+            let dataURLs = [];
+            for (let i = 0; i < 10; i++) {
+                context.drawImage(video, 0, 0, 640, 480);
+                var dataURL = canvas.toDataURL();
+                dataURLs[i] = dataURL;
+            }
+            var json_string = JSON.stringify(dataURLs);
+            $.ajax({
+                type: "POST",
+                url: "",
+                data: { 
+                    imgBase64: json_string
+                }
+            }).done(function(o) {
+                console.log('saved'); 
+                // If you want the file to be visible in the browser 
+                // - please modify the callback in javascript. All you
+                // need is to return the url to the file, you just saved 
+                // and than put the image in your browser.
+            });
+        });
+	
+    </script>
+
+
+{% endblock %}
