@@ -1,4 +1,10 @@
+{% extends 'base.html' %}
+
 {% block content %}
-<h1>Man's <i>happy</i> and dat</h1>
-<a href = { {link} }><h2> Enjoy yourself big man, and remember to spread the good vibes with this playlist </h2></a>
+    <h1>It seems you are feeling happy</h1>
+    <p>Give this spotify playlist a listen: <a href={{ link }}>Happy playlist</a> 
+    {% comment %} <br>Here is a joke you might like: 
+    <br>{{ joke_setup }}
+    <br>{{joke_punchline}} {% endcomment %}
+    </p>
 {% endblock %}
